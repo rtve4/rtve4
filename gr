@@ -1,0 +1,27 @@
+# -*- coding:utf-8 -*-
+from selenium import webdriver
+import selenium.webdriver.support.expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from platform import system
+import time
+import json
+import os
+import random
+
+# 引入打开文件所用的库
+# Window与Linux和Mac OSX有所不同
+# lambda用来定义一个匿名函数，可实现类似c语言的define定义
+if('Windows' in system()):
+    # Windows
+    from os import startfile
+    open_pdf_file = lambda x : startfile(x)
+elif('Darwin' in system()):
+    # MacOSX
+    from subprocess import call
+    open_pdf_file = lambda x : call(["open", x])
+else:
+    # Linux
+    from subprocess import call
+    open_pdf_file = lambda x: call(["xdg-open", x])
+
