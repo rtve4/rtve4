@@ -1,0 +1,20 @@
+// by default everything will pass through fine 
+  // but you can change these at runtime. 
+  public static int AUTHORIZE_RESPONSE = SUCCESS; 
+  public static int GET_BILLING_INFO_RESPONSE = SUCCESS; 
+  public static int GET_BILLING_INFOS_RESPONSE = SUCCESS; 
+  public static int CONFIRM_RESPONSE = SUCCESS; 
+  public static int DELETE_RESPONSE = SUCCESS; 
+  public static int REFUND_RESPONSE = SUCCESS; 
+  public static int REVERSE_RESPONSE = SUCCESS; 
+  public static int SUBSCRIBE_RESPONSE = SUCCESS; 
+  public static int UNSUBSCRIBE_RESPONSE = SUCCESS; 
+  public static int CHECK_SUBSCRIPTION_RESPONSE = SUCCESS; 
+ 
+  /** 
+   * This is used to log debug, warning, and error messages to the 
+   * logging system. 
+   */ 
+  private static final LogCategory sLog = 
+    LogCategory.getLog("BillingManager"); 
+ 
