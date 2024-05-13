@@ -1,0 +1,36 @@
+
+            # 是否加上随机表情
+            if(flag_wx_emoj):
+                message = message + choice(str_list_emoj)
+
+            send_message(message)
+            print("提醒女友中午吃饭:%s" % time.ctime())
+
+        elif (now_time == say_good_dinner):
+            message = choice(str_list_good_dinner)
+
+            # 是否加上随机表情
+            if(flag_wx_emoj):
+                message = message + choice(str_list_emoj)
+
+            send_message(message)
+            print("提醒女友晚上吃饭:%s" % time.ctime())
+
+        elif (now_time == say_good_dream):
+
+            # 是否在结尾加上每日学英语
+            if(flag_learn_english):
+                note, content = get_message()
+                message = choice(str_list_good_dream) + "\n\n" + "顺便一起来学英语哦：\n" + "原文: " + content + "\n\n翻译: " + note
+            else:
+                message = choice(str_list_good_dream)
+
+            # 是否加上随机表情
+            if(flag_wx_emoj):
+                message = message + choice(str_list_emoj)
+
+            send_message(message)
+            print("提醒女友晚上睡觉:%s" % time.ctime())
+
+
+
