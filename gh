@@ -1,0 +1,25 @@
+# 获取所有基金代码
+def get_fund_code():
+    # 获取一个随机user_agent和Referer
+    header = {'User-Agent': random.choice(user_agent_list),
+              'Referer': random.choice(referer_list)
+    }
+
+    # 访问网页接口
+    req = requests.get('http://fund.eastmoney.com/js/fundcode_search.js', timeout=5, headers=header)
+
+    # 获取所有基金代码
+    fund_code = req.content.decode()
+    fund_code = fund_code.replace("﻿var r = [","").replace("];","")
+
+    # 正则批量提取
+    fund_code = re.findall(r"[\[](.*?)[\]]", fund_code)
+
+    # 对每行数据进行处理，并存储到fund_code_list列表中
+    fund_code_list = []
+    for sub_data in fund_code:
+        data = sub_data.replace("\"","").replace("'","")
+        data_list = data.split(",")
+        fund_code_list.append(data_list)
+
+    return fund_code_list
