@@ -1,0 +1,9 @@
+def OK():  
+    root.destroy()
+    # 同意后显示漂浮爱心
+
+def NO():  
+    tk.messagebox.showwarning('❤', '再给你一次机会！')
+
+def closeWindow():
+    tk.messagebox.showwarning('❤', '逃避是没有用的哦')
