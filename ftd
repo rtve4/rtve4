@@ -1,0 +1,15 @@
+
+from bs4 import BeautifulSoup
+from requests import Session
+from re import sub,DOTALL
+sess = Session()
+txt=[]
+url = 'https://www.luoxia.com/qing/48416.htm'
+def find(url):
+    res = sess.get(url)
+    soup = BeautifulSoup(res.content,'html.parser')
+    title = soup.find('title')
+    div = soup.find('div',id='nr1')
+    ps = div.find_all('p')
+    page = title.text+'\n'
+    print(
