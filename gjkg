@@ -1,0 +1,20 @@
+# 定义目标点
+dst_pts = np.float32([[0, merged_box[1][1]-1],
+                      [0, 0],
+                      [merged_box[1][0]-1, 0],
+                      [merged_box[1][0]-1, merged_box[1][1]-1]])
+
+# 获取透视变换矩阵
+M = cv2.getPerspectiveTransform(src_pts, dst_pts)
+
+# 执行透视变换，校正文本区域
+corrected_image = cv2.warpPerspective(image, M, (int(merged_box[1][0]), int(merged_box[1][1])))
+
+# 检查纵向长度是否比横向长度长，如果是则翻转图像
+if corrected_image.shape[0] > corrected_image.shape[1]:
+    corrected_image = cv2.rotate(corrected_image, cv2.ROTATE_90_CLOCKWISE)
+
+# 显示结果
+cv2.imshow('Corrected Image', corrected_image)
+cv2.waitKey(0)
+cv2.destroyAllWind
