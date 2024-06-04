@@ -1,0 +1,80 @@
+        // notQQ
+            // 
+            this.notQQ.ContextMenuStrip = this.conQQ;
+            this.notQQ.Icon = ((System.Drawing.Icon)(resources.GetObject("notQQ.Icon")));
+            this.notQQ.Text = "QQ v1.0\r\n声音：开启\r\n消息提示框：关闭\r\n会话消息：自动弹出会话窗口";
+            this.notQQ.Visible = true;
+            this.notQQ.DoubleClick += new System.EventHandler(this.notQQ_DoubleClick);
+            // 
+            // conQQ
+            // 
+            this.conQQ.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于我们ToolStripMenuItem,
+            this.还原ToolStripMenuItem,
+            this.关闭ToolStripMenuItem});
+            this.conQQ.Name = "conQQ";
+            this.conQQ.Size = new System.Drawing.Size(153, 92);
+            // 
+            // 关于我们ToolStripMenuItem
+            // 
+            this.关于我们ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.开发工具ToolStripMenuItem,
+            this.联系我们ToolStripMenuItem});
+            this.关于我们ToolStripMenuItem.Name = "关于我们ToolStripMenuItem";
+            this.关于我们ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.关于我们ToolStripMenuItem.Text = "关于我们";
+            // 
+            // 开发工具ToolStripMenuItem
+            // 
+            this.开发工具ToolStripMenuItem.Name = "开发工具ToolStripMenuItem";
+            this.开发工具ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.开发工具ToolStripMenuItem.Text = "开发工具";
+            // 
+            // 联系我们ToolStripMenuItem
+            // 
+            this.联系我们ToolStripMenuItem.Name = "联系我们ToolStripMenuItem";
+            this.联系我们ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.联系我们ToolStripMenuItem.Text = "联系我们";
+            // 
+            // 还原ToolStripMenuItem
+            // 
+            this.还原ToolStripMenuItem.Name = "还原ToolStripMenuItem";
+            this.还原ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.还原ToolStripMenuItem.Text = "还原";
+            this.还原ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 关闭ToolStripMenuItem
+            // 
+            this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关闭ToolStripMenuItem.Text = "关闭";
+            this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
+            // 
+            // QQ
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 651);
+            this.Controls.Add(this.btn关闭);
+            this.Name = "QQ";
+            this.Text = "QQ";
+            this.SizeChanged += new System.EventHandler(this.QQ_SizeChanged);
+            ((System.ComponentModel.ISupportInitialize)(this.btn关闭)).EndInit();
+            this.conQQ.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.PictureBox btn关闭;
+        private System.Windows.Forms.NotifyIcon notQQ;
+        private System.Windows.Forms.ContextMenuStrip conQQ;
+        private System.Windows.Forms.ToolStripMenuItem 关于我们ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 开发工具ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 联系我们ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关闭ToolStripMenuItem;
+    }
+}
