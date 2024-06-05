@@ -1,0 +1,15 @@
+public class Animal {
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+public class Dog extends Animal {
+    void bark() {
+        System.out.println("The dog barks.");
+    }
+}
+
+Dog dog = new Dog();
+dog.eat(); // 继承自Animal
+dog.bark();
