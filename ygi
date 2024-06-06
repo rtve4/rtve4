@@ -1,0 +1,20 @@
+<!--pages/pictrue/pictrue.wxml-->
+<!--pages/photo/photo.wxml-->
+<!-- 照片轮播图 -->
+<swiper indicator-color="white" indicator-active-color="#ff4c91"
+    indicator-dots="true" autoplay="true" interval="3000" duration="1000" vertical="true" circular="true">
+  <swiper-item>
+    <image src="/images/images/timg1.jpg" />
+  </swiper-item>
+  <swiper-item>
+    <image src="/images/images/timg2.jpg" />
+  </swiper-item>
+  <swiper-item>
+    <image src="/images/images/timg3.jpg" />
+  </swiper-item>
+  <swiper-item>
+    <image src="/images/images/timg4.jpg" />
+  </swiper-item>
+</swiper>
+
+
