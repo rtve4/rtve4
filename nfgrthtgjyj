@@ -1,0 +1,51 @@
+<template>
+  <div>
+    <canvas ref="chartCanvas"></canvas>
+    <button @click="generatePDF">Generate PDF with Chart</button>
+  </div>
+</template>
+ 
+<script>
+import Chart from 'chart.js';
+import jsPDF from 'jspdf';
+ 
+export default {
+  data() {
+    return {
+      chartData: {
+        labels: ['Label 1', 'Label 2', 'Label 3'],
+        datasets: [
+          {
+            label: 'Sample Data',
+            data: [10, 20, 15],
+            backgroundColor: ['red', 'blue', 'green'],
+          },
+        ],
+      },
+    };
+  },
+  mounted() {
+    // 使用Chart.js创建柱状图
+    const ctx = this.$refs.chartCanvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: this.chartData,
+    });
+  },
+  methods: {
+    generatePDF() {
+      // 获取图表的Base64编码
+      const chartImage = this.$refs.chartCanvas.toDataURL('image/png');
+ 
+      // 创建一个PDF实例
+      const pdf = new jsPDF();
+ 
+      // 添加图像
+      pdf.addImage(chartImage, 'PNG', 10, 10, 80, 50);
+ 
+      // 保存为PDF文件
+      pdf.save('example_with_chart.pdf');
+    },
+  },
+};
+</script>
