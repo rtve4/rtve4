@@ -1,0 +1,40 @@
+class uiObject:
+
+    def __init__(self):
+        self.jsonData = ""
+        self.jsonData_keyword = ""
+
+    def show_GUI_movie_detail(self):
+        '''
+        显示 影片详情 界面GUI
+        '''
+        self.label_img['state'] = NORMAL
+        self.label_movie_name['state'] = NORMAL
+        self.label_movie_rating['state'] = NORMAL
+        self.label_movie_time['state'] = NORMAL
+        self.label_movie_type['state'] = NORMAL
+        self.label_movie_actor['state'] = NORMAL
+
+
+    def hidden_GUI_movie_detail(self):
+        '''
+        显示 影片详情 界面GUI
+        '''
+        self.label_img['state'] = DISABLED
+        self.label_movie_name['state'] = DISABLED
+        self.label_movie_rating['state'] = DISABLED
+        self.label_movie_time['state'] = DISABLED
+        self.label_movie_type['state'] = DISABLED
+        self.label_movie_actor['state'] = DISABLED
+
+
+
+    def show_IDMB_rating(self):
+        '''
+        显示IDM评分
+        '''
+
+        self.label_movie_rating_imdb.config(text='正在加载IMDB评分')
+        self.B_0_imdb['state'] = DISABLED
+
+
