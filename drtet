@@ -1,0 +1,96 @@
+      // 查看是否需要更新游戏基本信息-黑棋与白棋
+      let gameInfo = await Gobang.findOne({ _id: gobang_id });
+      if (gameInfo) {
+        let { bai_user_id, hei_user_id } = gameInfo;
+        // 查看用户是否在线
+        let baiUser = await GobangMember.findOne({
+          author_id: bai_user_id,
+          gobang_id,
+        });
+        let heiUser = await GobangMember.findOne({
+          author_id: hei_user_id,
+          gobang_id,
+        });
+        console.log(111,heiUser,baiUser)
+        if (!heiUser) {
+          await Gobang.updateOne({ _id: gobang_id }, { hei_user_id: user_id });
+        } else if (!baiUser) {
+          await Gobang.updateOne({ _id: gobang_id }, { bai_user_id: user_id });
+        }
+        
+      }
+      funStatus.push("get_gb");
+      funStatus.push("gobang_members_change");
+    }
+
+    // 房间信息改变,向房间内所有在线用户推送房间信息
+    sendMsgToRoom(room_id, null, funStatus, gobang_id);
+  });
+
+  // 主动推出登录
+  socket.on("live_room", async (data) => {
+    let { room_id, user_id, gobang_id } = data;
+
+    // 更新用户状态
+    let user = await ImRoomMember.findOneAndUpdate(
+      { im_room_id: room_id, author_id: user_id },
+      { status: "2" }
+    );
+    if (user) {
+      delete allSocket[user.socket_id];
+
+      // 这是触发的方法数组，默认只有im的人员信息变化
+      const funStatus = ["members_change"];
+      if (gobang_id) {
+        // 对于五子棋游戏相关退出房间操作
+        try {
+          await GobangMember.findOneAndUpdate(
+            { gobang_id, author_id: user_id },
+            { status: "2" }
+          );
+        } catch (err) {
+          console.log(err);
+        }
+
+        funStatus.push("gobang_members_change");
+      }
+
+      // 向房间的用户同步信息
+      sendMsgToRoom(room_id, null, funStatus, gobang_id);
+    }
+  });
+
+  // 发送消息
+  socket.on("send_msg", async (data) => {
+    if (!global.isObject(data)) return;
+    // time是时长
+    // specialType 默认1 im的发送消息；2 五子棋的发送下棋消息 3 五子棋发送清空数据消息
+    let {
+      room_id,
+      author_id,
+      content,
+      msg_type = "1",
+      time = 0,
+      poster = "",
+      video_width = "",
+      video_height = "",
+      specialType = 1,
+      gobang_id,
+      gobang_member_id,
+      step_number,
+      step_content = 0,
+      x,
+      y,
+    } = data;
+    if (specialType == 3) {
+      // 有关五子棋的消息
+      if (!gobang_id || !room_id) {
+        resMsg("清空数据消息有字段缺失", 400, "err", socket);
+        return;
+      }
+      let gobang = await Gobang.findOneAndDelete({ _id: gobang_id });
+      if (!gobang) {
+        resMsg("删除失败", 400, "err", socket);
+        return;
+      }
+
