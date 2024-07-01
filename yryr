@@ -1,0 +1,77 @@
+#include "mainwindow.h"
+#include <QCoreApplication>
+#include <QFileInfoList>
+#include <QDir>
+#include <QProcess>
+ 
+ 
+QProcess * mypro;
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+{
+    /* 视频播放器布局初始化 */
+    videoLayout();
+ 
+    /* 媒体初始化 */
+    mediaPlayerInit();
+ 
+    /* 扫描本地视频 */
+    scanVideoFiles();
+ 
+    /* 设置按钮的属性 */
+    pushButton[0]->setCheckable(true);
+    pushButton[4]->setCheckable(true);
+ 
+    /* 按钮连接信号槽 */
+    connect(pushButton[0], SIGNAL(clicked()),
+            this, SLOT(btn_play_clicked()));
+    connect(pushButton[1], SIGNAL(clicked()),
+            this, SLOT(btn_next_clicked()));
+    connect(pushButton[2], SIGNAL(clicked()),
+            this, SLOT(btn_volmedown_clicked()));
+    connect(pushButton[3], SIGNAL(clicked()),
+            this, SLOT(btn_volmeup_clicked()));
+    connect(pushButton[4], SIGNAL(clicked()),
+            this, SLOT(btn_fullscreen_clicked()));
+ 
+    /* 列表连接信号槽 */
+    connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(listWidgetCliked(QListWidgetItem*)));
+ 
+    /* 媒体连接信号槽 */
+    connect(videoPlayer,
+            SIGNAL(stateChanged(QMediaPlayer::State)),
+            this,
+            SLOT(mediaPlayerStateChanged(QMediaPlayer::State)));
+    connect(mediaPlaylist,
+            SIGNAL(currentIndexChanged(int)),
+            this,
+            SLOT(mediaPlaylistCurrentIndexChanged(int)));
+    connect(videoPlayer, SIGNAL(durationChanged(qint64)),
+            this,
+            SLOT(musicPlayerDurationChanged(qint64)));
+    connect(videoPlayer,
+            SIGNAL(positionChanged(qint64)),
+            this,
+            SLOT(mediaPlayerPositionChanged(qint64)));
+ 
+    /* slider信号槽连接 */
+    connect(durationSlider, SIGNAL(sliderReleased()),
+            this, SLOT(durationSliderReleased()));
+    connect(volumeSlider, SIGNAL(sliderReleased()),
+            this, SLOT(volumeSliderReleased()));
+ 
+    /* 退出按钮 */
+    exit_button = new QPushButton(this);
+    exit_button->setMinimumSize(60, 50);
+    exit_button->setMaximumSize(60, 50);
+    exit_button->move(740,10);
+    exit_button->setStyleSheet("QPushButton{background: black}");
+ 
+    connect(exit_button,&QPushButton::clicked,[=](){
+        mypro->close();
+        exit(1);//退出程序
+    });
+ 
+}
+ 
