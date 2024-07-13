@@ -1,0 +1,55 @@
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+import json
+ 
+ 
+def login_view(request):
+    # if request.method == 'GET':
+ 
+    if request.method == 'POST':
+        js = request.body.decode('utf8')
+        data = json.loads(js)
+        username = data['uname']
+        password = data['password']
+ 
+        # 使用 Django 自带的 authenticate 方法验证用户身份
+        user = authenticate(request, username=username, password=password)
+ 
+        if user is not None:
+            # 登录成功，将用户添加到当前会话中
+            login(request, user)
+ 
+            print(user)
+            return JsonResponse({'code': 200, 'success': True, 'message': '登录成功', 'username': str(user)})
+        else:
+            # 登录失败，返回错误消息
+            return JsonResponse({'code': 500, 'success': False, 'message': '用户名或密码错误', })
+ 
+    # 如果不是 POST 请求，则返回错误消息
+    return JsonResponse({'success': False, 'message': '只支持 POST 请求'})
+ 
+ 
+ 
+def register_view(request):
+    if request.method == 'POST':
+        # 从请求体中获取JSON数据
+        js = request.body.decode('utf8')
+        data = json.loads(js)
+        print(data)
+        username = data['uname']
+        password = data['password']
+ 
+ 
+        # 检查用户名是否已经存在
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'code': 400, 'success': False, 'message': '用户名已存在'})
+ 
+        # 创建用户
+        user = User.objects.create_user(username=username, password=password)
+ 
+        # 返回成功消息
+        return JsonResponse({'code': 200, 'success': True, 'message': '注册成功', 'username': username})
+ 
+    # 如果不是 POST 请求，则返回错误消息
+    return JsonResponse({'code': 405, 'success': False, 'message': '只支持 POST 请求'})
