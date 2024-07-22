@@ -1,0 +1,12 @@
+public abstract class Animal {
+    abstract void eat();
+}
+
+public class Dog extends Animal {
+    void eat() {
+        System.out.println("The dog eats.");
+    }
+}
+
+Animal dog = new Dog();
+dog.eat();
