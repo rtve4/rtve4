@@ -1,0 +1,27 @@
+    Scroll() {
+      Column() {
+        Text('Text1')
+          .fontSize(26)
+          .size({width: 180, height: 90})
+          .backgroundColor('#aabbcc')
+        Text('Text2')
+          .fontSize(26)
+          .size({width: 180, height: 90})
+          .backgroundColor('#bbccaa')
+        Text('Text3')
+          .fontSize(26)
+          .size({width: 180, height: 90})
+          .backgroundColor('#ccaabb')
+        Text('Text4')
+          .fontSize(26)
+          .size({width: 180, height: 90})
+          .backgroundColor('#abcabc')
+      }
+    }
+    .scrollable(ScrollDirection.Vertical) // 竖直滚动
+    .scrollBarColor(Color.Green)          // 设置滚动条颜色
+    .scrollBarWidth(20)                   // 设置滚动条宽度
+    .scrollBar(BarState.On)               // 设置滚动条永久显示
+    .width(230)
+    .height(170)
+    .backgroundColor(Color.Pink)
